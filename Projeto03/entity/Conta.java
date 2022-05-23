@@ -22,9 +22,6 @@ public class Conta {
 	@Column(name = "conta_cd_saldo")
 	private Double saldo;
 
-	@Column(name = "tipo_tx_operacao")
-	private String tipoOperacao;
-
 	public Conta() {
 	}
 
@@ -50,14 +47,6 @@ public class Conta {
 
 	public void setSaldo(Double saldo) {
 		this.saldo = saldo;
-	}
-
-	public String getTipoOperacao() {
-		return tipoOperacao;
-	}
-
-	public void setTipoOperacao(String tipoOperacao) {
-		this.tipoOperacao = tipoOperacao;
 	}
 
 }

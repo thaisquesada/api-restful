@@ -20,41 +20,41 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/conta")
 public class ContaController {
 
-		@Autowired
-		ContaService contaService;
-		
-		@PostMapping("/salvar")
-		public ResponseEntity<Void> salvar(@RequestBody Conta conta){
-			contaService.salvar(conta);
-			return new ResponseEntity<>(HttpStatus.CREATED);
-		}
-		
-		@GetMapping("/buscar/{idConta}")
-		public ResponseEntity<Conta> buscarPorId(@PathVariable Integer idConta) {
-			return ResponseEntity.ok(contaService.buscarPorId(idConta));
-		}
-		
-		@PutMapping("/atualizar/{idConta}")
-		public ResponseEntity<Void> atualizar(@PathVariable Integer idConta, @RequestBody Conta conta) {
-			contaService.atualizar(idConta, conta);
-			return new ResponseEntity<>(HttpStatus.ACCEPTED);
-		}
-		
-		@DeleteMapping("/deletar/{posicaoLista}")
-		public ResponseEntity<Void> deletar(@PathVariable int posicaoLista) {
-			contaService.deletar(posicaoLista);
-			return new ResponseEntity<>(HttpStatus.ACCEPTED);
-		}
-		
-		@GetMapping("/lista")
-		public ResponseEntity<List<Conta>> listaTodos(){
-			return ResponseEntity.ok(contaService.listartodos());
-		}
-		
-		@PostMapping("/salvar-lista")
-	    public ResponseEntity<Void> salvarLista(@RequestBody List<Conta> listaConta) {
-	        contaService.salvarTodos(listaConta);
-	        return new ResponseEntity<>(HttpStatus.CREATED);
-	    }
-		
+	@Autowired
+	ContaService contaService;
+
+	@PostMapping("/salvar")
+	public ResponseEntity<Void> salvar(@RequestBody Conta conta) {
+		contaService.salvar(conta);
+		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+
+	@GetMapping("/buscar/{idConta}")
+	public ResponseEntity<Conta> buscarPorId(@PathVariable Integer idConta) {
+		return ResponseEntity.ok(contaService.buscarPorId(idConta));
+	}
+
+	@PutMapping("/atualizar/{idConta}")
+	public ResponseEntity<Void> atualizar(@PathVariable Integer idConta, @RequestBody Conta conta) {
+		contaService.atualizar(idConta, conta);
+		return new ResponseEntity<>(HttpStatus.ACCEPTED);
+	}
+
+	@DeleteMapping("/deletar/{posicaoLista}")
+	public ResponseEntity<Void> deletar(@PathVariable int posicaoLista) {
+		contaService.deletar(posicaoLista);
+		return new ResponseEntity<>(HttpStatus.ACCEPTED);
+	}
+
+	@GetMapping("/lista")
+	public ResponseEntity<List<Conta>> listaTodos() {
+		return ResponseEntity.ok(contaService.listartodos());
+	}
+
+	@PostMapping("/salvar-lista")
+	public ResponseEntity<Void> salvarLista(@RequestBody List<Conta> listaConta) {
+		contaService.salvarTodos(listaConta);
+		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+
 }
