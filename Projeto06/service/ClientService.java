@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.serratec.backend.projeto06.dto.ClientDTO;
 import org.serratec.backend.projeto06.repository.ClientRepository;
 import org.serratec.backend.projeto06.entity.Client;
+import org.serratec.backend.projeto06.exception.ClientException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,7 +47,7 @@ public class ClientService {
 	}
 
 	// READ
-	public ClientDTO searchById(Integer clientId) {
+	public ClientDTO searchById(Integer clientId) throws ClientException {
 		Optional<Client> client = clientRepository.findById(clientId);
 		Client dataClient = new Client();
 		ClientDTO clientDTO = new ClientDTO();
@@ -54,12 +55,13 @@ public class ClientService {
 		if (client.isPresent()) {
 			dataClient = client.get();
 			toDTO(dataClient, clientDTO);
-		}
-		return clientDTO;
+			return clientDTO;
 	}
+	throw new ClientException("Client " + dataClient.getClientId() + " not found! Please, try again.");
+}
 
 	// UPDATE
-	public String update(Integer clientId, ClientDTO clientDTO) {
+	public String update(Integer clientId, ClientDTO clientDTO) throws ClientException {
 		Optional<Client> client = clientRepository.findById(clientId);
 		Client dataClient = new Client();
 
@@ -75,8 +77,9 @@ public class ClientService {
 				dataClient.setEmail(clientDTO.getEmail());
 			}
 			clientRepository.save(dataClient);
+			return "Client " + dataClient.getClientId() + " was successfully updated.";
 		}
-		return "Client ID " + dataClient.getClientId() + " was successfully updated.";
+		throw new ClientException("Client " + dataClient.getClientId() + " was not updated! Please, try again.");
 	}
 
 	// DELETE

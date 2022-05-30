@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.serratec.backend.projeto06.dto.CarDTO;
 import org.serratec.backend.projeto06.entity.Car;
+import org.serratec.backend.projeto06.exception.CarException;
 import org.serratec.backend.projeto06.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,7 +47,7 @@ public class CarService {
 	}
 
 	// READ
-	public CarDTO searchById(Integer carId) {
+	public CarDTO searchById(Integer carId) throws CarException {
 		Optional<Car> car = carRepository.findById(carId);
 		Car dataCar = new Car();
 		CarDTO carDTO = new CarDTO();
@@ -54,13 +55,14 @@ public class CarService {
 		if (car.isPresent()) {
 			dataCar = car.get();
 			toDTO(dataCar, carDTO);
+			return carDTO;
 		}
-		return carDTO;
+		throw new CarException("Car " + dataCar.getCarId() + " not found! Please, try again.");
 	}
 
 	// UPDATE
 
-	public String update(Integer carId, CarDTO carDTO) {
+	public String update(Integer carId, CarDTO carDTO) throws CarException {
 		Optional<Car> car = carRepository.findById(carId);
 		Car dataCar = new Car();
 
@@ -77,7 +79,7 @@ public class CarService {
 			}
 			carRepository.save(dataCar);
 		}
-		return "Car ID " + dataCar.getCarId() + " was successfully updated.";
+		throw new CarException("Car " + dataCar.getCarId() + " was not updated! Please, try again.");
 	}
 
 	// DELETE

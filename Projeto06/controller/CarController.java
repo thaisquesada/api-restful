@@ -3,6 +3,7 @@ package org.serratec.backend.projeto06.controller;
 import java.util.List;
 
 import org.serratec.backend.projeto06.dto.CarDTO;
+import org.serratec.backend.projeto06.exception.CarException;
 import org.serratec.backend.projeto06.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,12 +30,12 @@ public class CarController {
 	}
 	
 	@GetMapping("/search/{carId}")
-	public ResponseEntity<CarDTO> searchById(@PathVariable Integer carId) {
+	public ResponseEntity<CarDTO> searchById(@PathVariable Integer carId) throws CarException {
 		return ResponseEntity.ok(carService.searchById(carId));
 	}
 	
 	@PutMapping("/update/{carId}")
-	public ResponseEntity<String> update(@PathVariable Integer carId, @RequestBody CarDTO carDTO) {
+	public ResponseEntity<String> update(@PathVariable Integer carId, @RequestBody CarDTO carDTO) throws CarException {
 		return ResponseEntity.ok(carService.update(carId, carDTO));
 	}
 	
