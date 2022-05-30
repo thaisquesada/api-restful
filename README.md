@@ -1,3 +1,3 @@
 ## api-restful
 
-Repositório criado para reunir as atividades da disciplina de Desenvolvimento de API Restful.
+Repositório criado para as atividades da disciplina de Desenvolvimento de API Restful.
